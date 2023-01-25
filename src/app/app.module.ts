@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { HttpClientModule } from "@angular/common/http"; //Con este módulo llamaremos a la API. Añadirlo también en 'imports'.
 
 import { BrowserModule } from '@angular/platform-browser';
 
@@ -13,9 +14,10 @@ import { GifsModule } from './gifs/gifs.module';
     AppComponent
   ],
   imports: [
-    GifsModule,
+    BrowserModule,
+    HttpClientModule,
     SharedModule,
-    BrowserModule
+    GifsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

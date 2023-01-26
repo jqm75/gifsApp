@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Gif, SearchGIFResponse } from '../interface/gif.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -10,9 +11,8 @@ export class GifsService {
   private apiKey: string = 'XMLHsoyUuQFurJz9aDyyy4WuDIUxXAnV';
   private _historial:string[] = [];
 
-  // TODO: Cambiar any por el tipado que le corresponda.
 
-  public resultados: any[] = [];
+  public resultados: Gif[] = [];
 
   get historial(){
 
@@ -35,8 +35,8 @@ export class GifsService {
     
     // Para la API -> Usamos http, con la petición GET a la API en lugar de fetch porque en NG ofrece mucho más. Retorna un OBSERVABLE.
 
-    this.http.get(`https://api.giphy.com/v1/gifs/search?api_key=XMLHsoyUuQFurJz9aDyyy4WuDIUxXAnV&q=${ query }&limit=10`)
-      .subscribe( ( resp: any ) => { // <- SUBSCRIBE, es parecido al THEN.Se ejecuta cuando tengamos la resolución de la petición a la API, GET en este caso. Devuelve una respuesta (resp).
+    this.http.get<SearchGIFResponse>(`https://api.giphy.com/v1/gifs/search?api_key=XMLHsoyUuQFurJz9aDyyy4WuDIUxXAnV&q=${ query }&limit=10`)
+      .subscribe( ( resp ) => { // <- SUBSCRIBE, es parecido al THEN.Se ejecuta cuando tengamos la resolución de la petición a la API, GET en este caso. Devuelve una respuesta (resp).
         console.log( resp.data );
         this.resultados = resp.data;
         

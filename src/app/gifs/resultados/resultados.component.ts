@@ -7,7 +7,7 @@ import { GifsService } from '../services/gifs.service';
 })
 
 export class ResultadosComponent {
-  
+  // Inyectamos el servicio gifs.service.
   constructor( private gifsService: GifsService ) {}
 
   get resultados() {

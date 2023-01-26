@@ -21,7 +21,15 @@ export class GifsService {
   } 
   
   // Con este HttpClient, ya se pueden hacer peticiones GET, PUT, POST de las API. Funciona en base a OBSERVABLES, que son más poderosos que la promesas de JS. No es mejor, da más control.
-  constructor( private http: HttpClient ) {}
+  constructor( private http: HttpClient ) {
+
+    this._historial = JSON.parse( localStorage.getItem( 'historial' )! ) || [] // parse es lo opuesto a stringify
+
+    /* if( localStorage.getItem('historial')) {
+      this._historial = JSON.parse(localStorage.getItem( 'historial')! );
+    } */
+
+  }
 
   buscarGifs( query:string ='' ) {
     
@@ -31,6 +39,10 @@ export class GifsService {
     if( !this._historial.includes( query ) ) {
       this._historial.unshift( query )
       this._historial = this._historial.splice(0,10);
+
+      localStorage.setItem( 'historial', JSON.stringify(this._historial) ); 
+
+
     };
     
     // Para la API -> Usamos http, con la petición GET a la API en lugar de fetch porque en NG ofrece mucho más. Retorna un OBSERVABLE.

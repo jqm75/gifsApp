@@ -24,6 +24,7 @@ export class GifsService {
   constructor( private http: HttpClient ) {
 
     this._historial = JSON.parse( localStorage.getItem( 'historial' )! ) || [] // parse es lo opuesto a stringify
+    this.resultados = JSON.parse( localStorage.getItem( 'resultados' )! ) || [] 
 
     /* if( localStorage.getItem('historial')) {
       this._historial = JSON.parse(localStorage.getItem( 'historial')! );
@@ -48,9 +49,12 @@ export class GifsService {
     // Para la API -> Usamos http, con la petición GET a la API en lugar de fetch porque en NG ofrece mucho más. Retorna un OBSERVABLE.
 
     this.http.get<SearchGIFResponse>(`https://api.giphy.com/v1/gifs/search?api_key=XMLHsoyUuQFurJz9aDyyy4WuDIUxXAnV&q=${ query }&limit=10`)
-      .subscribe( ( resp ) => { // <- SUBSCRIBE, es parecido al THEN.Se ejecuta cuando tengamos la resolución de la petición a la API, GET en este caso. Devuelve una respuesta (resp).
+    
+      // SUBSCRIBE, es parecido al THEN.Se ejecuta cuando tengamos la resolución de la petición a la API, GET en este caso. Devuelve una respuesta (resp).
+      .subscribe( ( resp ) => { 
         console.log( resp.data );
         this.resultados = resp.data;
+        localStorage.setItem( 'resultados', JSON.stringify(this.resultados) ); 
         
       });
   }

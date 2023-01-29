@@ -57,7 +57,7 @@ export class GifsService {
     
       // SUBSCRIBE, es parecido al THEN.Se ejecuta cuando tengamos la resolución de la petición a la API, GET en este caso. Devuelve una respuesta (resp).
       .subscribe( ( resp ) => { 
-        console.log( resp.data );
+      
         this.resultados = resp.data;
         localStorage.setItem( 'resultados', JSON.stringify(this.resultados) ); 
         
